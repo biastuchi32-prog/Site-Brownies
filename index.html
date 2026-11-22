@@ -324,11 +324,28 @@ stars.forEach((star,index)=>{
     });
   });
 });
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-function adminInfo(){
-  alert("A área administrativa será habilitada depois da configuração do acesso seguro.");
+<script>
+const SUPABASE_URL = "https://qkmmvbskvdjxinzdteoy.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_nZFckyq1NBooVlEQpEzUIg_AJOdpgE0";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+async function adminInfo() {
+  const { data, error } = await supabaseClient.auth.getUser();
+
+  if (error || !data.user) {
+    alert("Você precisa fazer login.");
+    return;
+  }
+
+  alert("Usuário conectado: " + data.user.email);
 }
 </script>
-
 </body>
 </html>
